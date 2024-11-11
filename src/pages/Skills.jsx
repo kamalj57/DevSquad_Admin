@@ -1,91 +1,7 @@
-import React, { useState } from "react";
-import { ChevronDown, Users } from "lucide-react";
+import  { useState } from "react";
+import { ChevronDown, Users,BookOpen,GraduationCap } from "lucide-react";
 import CustomPieChart from "../components/CustomPieChart";
-
-const batchData = {
-  "2024 Batch": {
-    "React.js": {
-      total: 320,
-      levels: {
-        beginner: 150,
-        intermediate: 120,
-        advanced: 50,
-      },
-      topDepartments: [
-        { name: "CSE", count: 180 },
-        { name: "IT", count: 100 },
-        { name: "ECE", count: 40 },
-      ],
-    },
-    Python: {
-      total: 450,
-      levels: {
-        beginner: 200,
-        intermediate: 180,
-        advanced: 70,
-      },
-      topDepartments: [
-        { name: "CSE", count: 220 },
-        { name: "IT", count: 150 },
-        { name: "ECE", count: 80 },
-      ],
-    },
-    Java: {
-      total: 380,
-      levels: {
-        beginner: 180,
-        intermediate: 150,
-        advanced: 50,
-      },
-      topDepartments: [
-        { name: "CSE", count: 200 },
-        { name: "IT", count: 130 },
-        { name: "ECE", count: 50 },
-      ],
-    },
-  },
-  "2025 Batch": {
-    "React.js": {
-      total: 280,
-      levels: {
-        beginner: 140,
-        intermediate: 100,
-        advanced: 40,
-      },
-      topDepartments: [
-        { name: "CSE", count: 150 },
-        { name: "IT", count: 90 },
-        { name: "ECE", count: 40 },
-      ],
-    },
-    Python: {
-      total: 350,
-      levels: {
-        beginner: 180,
-        intermediate: 120,
-        advanced: 50,
-      },
-      topDepartments: [
-        { name: "CSE", count: 180 },
-        { name: "IT", count: 120 },
-        { name: "ECE", count: 50 },
-      ],
-    },
-    Java: {
-      total: 300,
-      levels: {
-        beginner: 150,
-        intermediate: 100,
-        advanced: 50,
-      },
-      topDepartments: [
-        { name: "CSE", count: 160 },
-        { name: "IT", count: 100 },
-        { name: "ECE", count: 40 },
-      ],
-    },
-  },
-};
+import batchData from '../data/batchData.json';
 
 const Dropdown = ({ value, options, onChange, label }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -128,9 +44,16 @@ const Dropdown = ({ value, options, onChange, label }) => {
   );
 };
 
+const calculatePercentage = (value, total) => {
+  return ((value / total) * 100).toFixed(1);
+};
+
 export default function Skills() {
-  const [selectedBatch, setSelectedBatch] = useState("2024 Batch");
-  const [selectedSkill, setSelectedSkill] = useState("React.js");
+  const batchOptions = Object.keys(batchData);
+  const [selectedBatch, setSelectedBatch] = useState(batchOptions[0] || "");
+  const skillOptions = batchData[selectedBatch] ? Object.keys(batchData[selectedBatch]) : [];
+  const [selectedSkill, setSelectedSkill] = useState(skillOptions[0] || "");
+  const [selectedDepartment, setSelectedDepartment] = useState("CSE");
 
   const preparePieData = (skillData) => {
     return [
@@ -141,6 +64,11 @@ export default function Skills() {
   };
 
   const currentSkillData = batchData[selectedBatch][selectedSkill];
+  const departmentData = currentSkillData.topDepartments.find(
+    (dept) => dept.name === selectedDepartment
+  );
+  const levelData = departmentData ? departmentData.levels : { beginner: 0, intermediate: 0, advanced: 0 };
+  const totalForPercentage = departmentData ? departmentData.count : 1;
 
   return (
     <div className="p-8">
@@ -151,12 +79,16 @@ export default function Skills() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1  md:grid-cols-2 gap-6 mb-8 w-96">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 w-[40%]">
         <Dropdown
           label="Select Batch"
           value={selectedBatch}
           options={Object.keys(batchData)}
-          onChange={setSelectedBatch}
+          onChange={(value) => {
+            setSelectedBatch(value)
+            const newSkillOptions = Object.keys(batchData[value] || {});
+            setSelectedSkill(newSkillOptions[0] || "");
+          }}
         />
         <Dropdown
           label="Select Skill"
@@ -166,24 +98,40 @@ export default function Skills() {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+      <div className="bg-white rounded-md shadow-sm p-4 flex gap-3 items-center text-center space-x-3">
+            <Users className="text-blue-600" size={42} />
+            <div>
+              <p className="text-sm text-gray-600">Total Students</p>
+              <p className="text-2xl font-bold">{currentSkillData.total}</p>
+            </div>
+          </div>
+          <div className="bg-white rounded-lg shadow-sm p-4 flex items-center gap-3 text-center space-x-3">
+            <BookOpen className="text-green-600" size={42} />
+            <div>
+              <p className="text-sm text-gray-600">Top Department</p>
+              <p className="text-2xl font-bold">{currentSkillData.topDepartments[0].name}</p>
+            </div>
+          </div>
         {Object.entries(currentSkillData.levels).map(([level, count]) => (
-          <div key={level} className="bg-white p-6 rounded-xl shadow-sm">
-            <h3
-              className={`text-lg font-bold text-gray-500 text-center p-1  uppercase rounded-md
-             ${
-               level === "beginner"
-                 ? "bg-green-100 text-green-800 w-28"
-                 : level === "advanced"
-                 ? "bg-orange-100 text-orange-500 w-28"
-                 : "bg-yellow-100 text-yellow-600 w-min"
-             }
-            `}
-            >
+          <div key={level} className="bg-white p-6 rounded-xl shadow-sm text-center">
+            <h3 className={`text-lg font-bold text-center p-1 uppercase rounded-md ${
+              level === "beginner" ? "bg-green-100 text-green-800" : 
+              level === "advanced" ? "bg-orange-100 text-orange-500" : "bg-yellow-100 text-yellow-600"
+            }`}>
               {level}
             </h3>
-            <p className="text-2xl font-bold text-gray-900 mt-2 flex items-center m-1 p-1 gap-1">
-              <Users className="text-purple-600" size={24} />
+            <p className="text-2xl font-bold text-gray-900 mt-2 flex items-center m-1 p-1 gap-5">
+            <GraduationCap
+      className={`${
+        level === "beginner"
+          ? "text-green-600"
+          : level === "intermediate"
+          ? "text-yellow-500"
+          : "text-orange-500"
+      }`}
+      size={32}
+    />
               {count}
             </p>
             <p className="text-sm text-gray-600 mt-1">
@@ -195,7 +143,7 @@ export default function Skills() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white p-6 rounded-xl shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">
             Skill Level Distribution
           </h3>
           <div className="h-[400px]">
@@ -232,13 +180,93 @@ export default function Skills() {
                       {dept.count}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {((dept.count / currentSkillData.total) * 100).toFixed(1)}
-                      %
+                      {((dept.count / currentSkillData.total) * 100).toFixed(1)}%
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-xl shadow-sm mt-3 w-[50%]">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          Proficiency Distribution
+        </h3>
+        <div className="w-48">
+        <Dropdown
+          label="Select Department"
+          value={selectedDepartment}
+          options={currentSkillData.topDepartments.map((dept) => dept.name)}
+          onChange={setSelectedDepartment}
+        />
+</div>
+        <div className="space-y-6 mt-6">
+          {/* Beginner Level */}
+          <div>
+            <div className="flex justify-between mb-2">
+              <span className="text-sm font-medium text-gray-700">Beginner</span>
+              <span className="text-sm font-medium text-gray-700">
+                {levelData.beginner} (
+                {calculatePercentage(levelData.beginner, totalForPercentage)}%)
+              </span>
+            </div>
+            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-green-500 rounded-full transition-all duration-500"
+                style={{
+                  width: `${calculatePercentage(
+                    levelData.beginner,
+                    totalForPercentage
+                  )}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Intermediate Level */}
+          <div>
+            <div className="flex justify-between mb-2">
+              <span className="text-sm font-medium text-gray-700">Intermediate</span>
+              <span className="text-sm font-medium text-gray-700">
+                {levelData.intermediate} (
+                {calculatePercentage(levelData.intermediate, totalForPercentage)}%)
+              </span>
+            </div>
+            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-yellow-500 rounded-full transition-all duration-500"
+                style={{
+                  width: `${calculatePercentage(
+                    levelData.intermediate,
+                    totalForPercentage
+                  )}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Advanced Level */}
+          <div>
+            <div className="flex justify-between mb-2">
+              <span className="text-sm font-medium text-gray-700">Advanced</span>
+              <span className="text-sm font-medium text-gray-700">
+                {levelData.advanced} (
+                {calculatePercentage(levelData.advanced, totalForPercentage)}%)
+              </span>
+            </div>
+            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-orange-500 rounded-full transition-all duration-500"
+                style={{
+                  width: `${calculatePercentage(
+                    levelData.advanced,
+                    totalForPercentage
+                  )}%`,
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

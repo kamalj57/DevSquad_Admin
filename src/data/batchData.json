@@ -1,0 +1,193 @@
+{
+  "2023 Batch": {
+    "React.js": {
+      "total": 300,
+      "levels": {
+        "beginner": 100,
+        "intermediate": 150,
+        "advanced": 50
+      },
+      "topDepartments": [
+        {
+          "name": "CSE",
+          "count": 120,
+          "levels": { "beginner": 50, "intermediate": 50, "advanced": 20 }
+        },
+        {
+          "name": "ECE",
+          "count": 80,
+          "levels": { "beginner": 30, "intermediate": 40, "advanced": 10 }
+        },
+        {
+          "name": "IT",
+          "count": 50,
+          "levels": { "beginner": 20, "intermediate": 20, "advanced": 10 }
+        },
+        {
+          "name": "ME",
+          "count": 30,
+          "levels": { "beginner": 15, "intermediate": 10, "advanced": 5 }
+        },
+        {
+          "name": "EE",
+          "count": 20,
+          "levels": { "beginner": 10, "intermediate": 5, "advanced": 5 }
+        }
+      ]
+    },
+    "Node.js": {
+      "total": 270,
+      "levels": {
+        "beginner": 120,
+        "intermediate": 100,
+        "advanced": 50
+      },
+      "topDepartments": [
+        {
+          "name": "CSE",
+          "count": 130,
+          "levels": { "beginner": 60, "intermediate": 50, "advanced": 20 }
+        },
+        {
+          "name": "ECE",
+          "count": 70,
+          "levels": { "beginner": 25, "intermediate": 35, "advanced": 10 }
+        },
+        {
+          "name": "IT",
+          "count": 40,
+          "levels": { "beginner": 20, "intermediate": 15, "advanced": 5 }
+        },
+        {
+          "name": "ME",
+          "count": 20,
+          "levels": { "beginner": 10, "intermediate": 5, "advanced": 5 }
+        }
+      ]
+    }
+  },
+  "2024 Batch": {
+    "React.js": {
+      "total": 320,
+      "levels": {
+        "beginner": 150,
+        "intermediate": 120,
+        "advanced": 50
+      },
+      "topDepartments": [
+        {
+          "name": "CSE",
+          "count": 180,
+          "levels": { "beginner": 80, "intermediate": 70, "advanced": 30 }
+        },
+        {
+          "name": "IT",
+          "count": 100,
+          "levels": { "beginner": 50, "intermediate": 40, "advanced": 10 }
+        },
+        {
+          "name": "ECE",
+          "count": 40,
+          "levels": { "beginner": 20, "intermediate": 10, "advanced": 10 }
+        },
+        {
+          "name": "ME",
+          "count": 30,
+          "levels": { "beginner": 15, "intermediate": 10, "advanced": 5 }
+        }
+      ]
+    },
+    "Python": {
+      "total": 310,
+      "levels": {
+        "beginner": 130,
+        "intermediate": 120,
+        "advanced": 60
+      },
+      "topDepartments": [
+        {
+          "name": "CSE",
+          "count": 160,
+          "levels": { "beginner": 70, "intermediate": 60, "advanced": 30 }
+        },
+        {
+          "name": "ECE",
+          "count": 70,
+          "levels": { "beginner": 30, "intermediate": 30, "advanced": 10 }
+        },
+        {
+          "name": "IT",
+          "count": 50,
+          "levels": { "beginner": 20, "intermediate": 25, "advanced": 5 }
+        },
+        {
+          "name": "ME",
+          "count": 30,
+          "levels": { "beginner": 10, "intermediate": 15, "advanced": 5 }
+        }
+      ]
+    }
+  },
+  "2025 Batch": {
+    "Machine Learning": {
+      "total": 330,
+      "levels": {
+        "beginner": 140,
+        "intermediate": 120,
+        "advanced": 70
+      },
+      "topDepartments": [
+        {
+          "name": "CSE",
+          "count": 170,
+          "levels": { "beginner": 80, "intermediate": 60, "advanced": 30 }
+        },
+        {
+          "name": "ECE",
+          "count": 80,
+          "levels": { "beginner": 30, "intermediate": 40, "advanced": 10 }
+        },
+        {
+          "name": "IT",
+          "count": 50,
+          "levels": { "beginner": 20, "intermediate": 25, "advanced": 5 }
+        },
+        {
+          "name": "ME",
+          "count": 30,
+          "levels": { "beginner": 10, "intermediate": 15, "advanced": 5 }
+        }
+      ]
+    },
+    "Data Science": {
+      "total": 290,
+      "levels": {
+        "beginner": 120,
+        "intermediate": 100,
+        "advanced": 70
+      },
+      "topDepartments": [
+        {
+          "name": "CSE",
+          "count": 150,
+          "levels": { "beginner": 60, "intermediate": 50, "advanced": 40 }
+        },
+        {
+          "name": "IT",
+          "count": 70,
+          "levels": { "beginner": 20, "intermediate": 40, "advanced": 10 }
+        },
+        {
+          "name": "ECE",
+          "count": 40,
+          "levels": { "beginner": 15, "intermediate": 15, "advanced": 10 }
+        },
+        {
+          "name": "EE",
+          "count": 20,
+          "levels": { "beginner": 10, "intermediate": 5, "advanced": 5 }
+        }
+      ]
+    }
+  }
+}
